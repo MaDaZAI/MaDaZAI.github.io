@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MaDaZ AI — Autonomous Intelligence Systems</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #020408;
+    --deep: #050d18;
+    --cyan: #00d4ff;
+    --gold: #f0c040;
+    --white: #f0f4ff;
+    --gray: #8899aa;
+    --border: rgba(0,212,255,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 60px;
+    background: rgba(2,4,8,0.88);
+    backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.3rem;
+    letter-spacing: 3px;
+    color: var(--white);
+    text-transform: uppercase;
+  }
+
+  .nav-logo span { color: var(--cyan); }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: 'Space Mono', monospace;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px;
+    background: var(--cyan);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+  .nav-links a.active { color: var(--white); }
+
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    padding: 9px 22px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+  }
+
+  .nav-cta:hover { background: var(--cyan); color: var(--black); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 60px 80px;
+    position: relative;
+    z-index: 1;
+    gap: 60px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0,212,255,0.07);
+    border: 1px solid rgba(0,212,255,0.25);
+    padding: 7px 18px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 2.5px;
+    color: var(--cyan);
+    margin-bottom: 44px;
+    text-transform: uppercase;
+  }
+
+  .badge-dot {
+    width: 6px; height: 6px;
+    background: var(--cyan);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0,212,255,0.4); }
+    50% { opacity: 0.5; box-shadow: 0 0 0 6px rgba(0,212,255,0); }
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.6rem, 4.5vw, 4.2rem);
+    line-height: 1.08;
+    margin-bottom: 12px;
+    letter-spacing: -1px;
+  }
+
+  .hero h1 .accent { color: var(--cyan); }
+
+  .hero-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--gray);
+    letter-spacing: 1px;
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    color: rgba(240,244,255,0.7);
+    line-height: 1.8;
+    margin-bottom: 16px;
+    max-width: 520px;
+    font-weight: 300;
+  }
+
+  .hero-desc strong { color: var(--white); font-weight: 600; }
+
+  .hero-tagline {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 50px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .btn-primary {
+    background: var(--cyan);
+    color: var(--black);
+    padding: 13px 32px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+  }
+
+  .btn-primary:hover {
+    background: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,212,255,0.25);
+  }
+
+  .btn-ghost {
+    color: var(--gray);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(136,153,170,0.4);
+    padding-bottom: 3px;
+    transition: all 0.3s;
+    text-transform: uppercase;
+  }
+
+  .btn-ghost:hover { color: var(--white); border-color: var(--white); }
+
+  /* HERO VISUAL */
+  .hero-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .visual-ring {
+    position: relative;
+    width: 320px;
+    height: 320px;
+  }
+
+  .visual-core {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    background: rgba(0,212,255,0.08);
+    border: 2px solid rgba(0,212,255,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    box-shadow: 0 0 40px rgba(0,212,255,0.15);
+  }
+
+  .core-label {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--white);
+    letter-spacing: 1px;
+  }
+
+  .core-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--cyan);
+    letter-spacing: 2px;
+  }
+
+  .orbit {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px dashed rgba(0,212,255,0.2);
+    animation: spin 20s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .orbit-dot {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: rotate(var(--angle)) translateY(-150px) rotate(calc(-1 * var(--angle)));
+    width: 44px; height: 44px;
+    margin: -22px;
+    border-radius: 50%;
+    background: rgba(5,13,24,0.95);
+    border: 1px solid rgba(0,212,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .orbit-dot span {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--cyan);
+    letter-spacing: 0.5px;
+  }
+
+  .visual-stats {
+    display: flex;
+    gap: 32px;
+  }
+
+  .vstat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .vstat-val {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: var(--white);
+  }
+
+  .vstat-val em { color: var(--cyan); font-style: normal; }
+
+  .vstat-l {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--gray);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* PROOF STRIP */
+  .proof-strip {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: rgba(0,212,255,0.02);
+  }
+
+  .proof-item {
+    padding: 32px 40px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .proof-item:last-child { border-right: none; }
+
+  .proof-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 2.2rem;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .proof-num span { color: var(--cyan); }
+
+  .proof-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--gray);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ECOSYSTEM */
+  .ecosystem {
+    padding: 100px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .section-eyebrow::before {
+    content: '';
+    width: 30px; height: 1px;
+    background: var(--cyan);
+  }
+
+  .section-eyebrow::after {
+    content: '';
+    width: 30px; height: 1px;
+    background: var(--cyan);
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+    line-height: 1.15;
+    margin-bottom: 60px;
+    color: var(--white);
+    text-align: center;
+  }
+
+  .eco-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .eco-card {
+    background: var(--deep);
+    border: 1px solid var(--border);
+    padding: 44px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .eco-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--cyan);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+    transform-origin: left;
+  }
+
+  .eco-card.buddy::before { background: var(--gold); }
+  .eco-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-4px); }
+  .eco-card:hover::before { transform: scaleX(1); }
+
+  .eco-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .eco-card.buddy .eco-tag { color: var(--gold); }
+
+  .eco-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+    color: var(--white);
+  }
+
+  .eco-desc {
+    font-size: 0.88rem;
+    color: var(--gray);
+    line-height: 1.75;
+    margin-bottom: 8px;
+  }
+
+  .eco-vision {
+    font-size: 0.82rem;
+    color: rgba(240,196,64,0.8);
+    font-style: italic;
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  .eco-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--cyan);
+    text-decoration: none;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(0,212,255,0.3);
+    padding-bottom: 2px;
+    transition: all 0.3s;
+  }
+
+  .eco-card.buddy .eco-link { color: var(--gold); border-color: rgba(240,196,64,0.3); }
+  .eco-link:hover { border-color: currentColor; }
+
+  /* QUOTE */
+  .quote-section {
+    padding: 80px 60px;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    background: rgba(0,212,255,0.015);
+  }
+
+  .quote-mark {
+    font-family: 'Syne', sans-serif;
+    font-size: 5rem;
+    color: rgba(0,212,255,0.15);
+    line-height: 0.5;
+    margin-bottom: 30px;
+    display: block;
+  }
+
+  .quote-text {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.2rem, 2vw, 1.7rem);
+    font-weight: 700;
+    color: var(--white);
+    max-width: 680px;
+    margin: 0 auto 20px;
+    line-height: 1.5;
+  }
+
+  .quote-text span { color: var(--cyan); }
+
+  .quote-author {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--gray);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 30px 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .footer-logo span { color: var(--cyan); }
+
+  .footer-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    color: var(--gray);
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--white); }
+
+  .footer-right {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--gray);
+  }
+
+  .page-indicator {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    background: rgba(2,4,8,0.9);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--cyan);
+    letter-spacing: 2px;
+    z-index: 100;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">MaDaZ <span>AI</span></div>
+  <ul class="nav-links">
+    <li><a href="#" class="active">Home</a></li>
+    <li><a href="#">MaDaZ-AI</a></li>
+    <li><a href="#">BuddY</a></li>
+    <li><a href="#">Investors</a></li>
+    <li><a href="#">Trial</a></li>
+  </ul>
+  <button class="nav-cta">Request Trial</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      Live System · Azure Cloud · Active Since 2025
+    </div>
+
+    <h1>
+      Autonomous<br>
+      <span class="accent">Intelligence</span><br>
+      Systems
+    </h1>
+
+    <p class="hero-sub">Not a concept. A running system.</p>
+
+    <p class="hero-desc">
+      We combine a central intelligence layer with specialized agents that monitor, analyze, and execute —
+      <strong>continuously, without emotion, without fatigue.</strong>
+    </p>
+
+    <p class="hero-tagline">Trading is the first environment. Not the last.</p>
+
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">Explore the System →</a>
+      <a href="#" class="btn-ghost">For Investors ↗</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="visual-ring">
+        <div class="visual-core">
+          <div class="core-label">MaDaZ</div>
+          <div class="core-sub">AI · AGI</div>
+        </div>
+        <div class="orbit orbit-1">
+          <div class="orbit-dot" style="--angle:0deg"><span>07</span></div>
+          <div class="orbit-dot" style="--angle:72deg"><span>BuddY</span></div>
+          <div class="orbit-dot" style="--angle:144deg"><span>Core</span></div>
+          <div class="orbit-dot" style="--angle:216deg"><span>Data</span></div>
+          <div class="orbit-dot" style="--angle:288deg"><span>Guard</span></div>
+        </div>
+      </div>
+      <div class="visual-stats">
+        <div class="vstat"><span class="vstat-val">100<em>+</em></span><span class="vstat-l">Trades</span></div>
+        <div class="vstat"><span class="vstat-val">60<em>%+</em></span><span class="vstat-l">Win Rate</span></div>
+        <div class="vstat"><span class="vstat-val">2</span><span class="vstat-l">Systems</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF STRIP -->
+<div class="proof-strip">
+  <div class="proof-item">
+    <div class="proof-num">100<span>+</span></div>
+    <div class="proof-label">Live Trades Executed</div>
+  </div>
+  <div class="proof-item">
+    <div class="proof-num">60<span>%+</span></div>
+    <div class="proof-label">Win Rate</div>
+  </div>
+  <div class="proof-item">
+    <div class="proof-num">$<span>0</span></div>
+    <div class="proof-label">External Capital Used</div>
+  </div>
+  <div class="proof-item">
+    <div class="proof-num" style="font-size:1.1rem;padding-top:10px;">Microsoft<span> ✓</span></div>
+    <div class="proof-label">For Startups · Validated</div>
+  </div>
+</div>
+
+<!-- ECOSYSTEM -->
+<section class="ecosystem">
+  <p class="section-eyebrow">The Ecosystem</p>
+  <h2 class="section-title">Two systems. One vision.</h2>
+
+  <div class="eco-grid">
+    <div class="eco-card">
+      <p class="eco-tag">// MaDaZ-AI · 07</p>
+      <h3 class="eco-name">MaDaZ-AI <span style="color:var(--cyan);font-size:1.1rem;">· 07</span></h3>
+      <p class="eco-desc">
+        An autonomous multi-agent system for market analysis and trading execution. Specialized agents work in coordination — monitoring signals, processing data, and executing decisions in real time.
+      </p>
+      <a href="#" class="eco-link">Explore the System →</a>
+    </div>
+
+    <div class="eco-card buddy">
+      <p class="eco-tag">// MaDaZ-AGI · BuddY</p>
+      <h3 class="eco-name">MaDaZ-AGI <span style="color:var(--gold);font-size:1.1rem;">· BuddY</span></h3>
+      <p class="eco-desc">
+        An independent AI guardian built on OpenClaw. A separate system. A separate story.
+      </p>
+      <p class="eco-vision">
+        Our vision for modern AGI: not a single model, but a system of specialized agents — each sovereign, each purposeful.
+      </p>
+      <a href="#" class="eco-link">Meet BuddY →</a>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote-section">
+  <span class="quote-mark">"</span>
+  <p class="quote-text">
+    With MaDaZ-AI, I earned <span>+15% profit in one week</span>,<br>
+    and gained a deeper understanding of the market.
+  </p>
+  <p class="quote-author">— Ali M. · Beta User</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">MaDaZ <span>AI</span></div>
+  <ul class="footer-links">
+    <li><a href="#">MaDaZ-AI</a></li>
+    <li><a href="#">BuddY</a></li>
+    <li><a href="#">Investors</a></li>
+    <li><a href="#">GitHub</a></li>
+    <li><a href="#">LinkedIn</a></li>
+  </ul>
+  <div class="footer-right">© 2026 MADAZAI LTD · London, UK</div>
+</footer>
+
+<div class="page-indicator">Home · 01 / 05</div>
+
+</body>
+</html>
