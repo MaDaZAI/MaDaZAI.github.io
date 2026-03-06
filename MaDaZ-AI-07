@@ -491,7 +491,7 @@
     <li><a href="#">Home</a></li>
     <li><a href="#" class="active">MaDaZ-AI-07</a></li>
     <li><a href="#">MaDaZ-AGI-BuddY</a></li>
-    <li><a href="#">Founder & Investors</a></li>
+    <li><a href="#">Founder&Investors</a></li>
     <li><a href="#">Trial</a></li>
   </ul>
   <button class="nav-cta">Request Trial</button>
