@@ -1,132 +1,915 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>MaDaZ-AGI-BuddY</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MaDaZ AGI — BuddY Protocol</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  body {
-    font-family: "Segoe UI", Tahoma, sans-serif;
-    background: #111;
-    color: #fff;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-  }
-  .hero {
-    margin-top: 50px;
-  }
-  .golden-core {
-    width: 150px;
-    height: 150px;
-    margin: 0 auto;
-    border-radius: 50%;
-    background: radial-gradient(circle, gold 0%, orange 70%);
-    animation: pulse 2s infinite;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 20px;
-  }
-  @keyframes pulse {
-    0% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.1); opacity: 1; }
-    100% { transform: scale(1); opacity: 0.8; }
-  }
-  .traffic-light {
-    margin: 30px;
-  }
-  .light-btn {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 2px solid #fff;
-    display: inline-block;
-    margin: 0 10px;
-    cursor: pointer;
-  }
-  .green { background: green; }
-  .yellow { background: yellow; }
-  .red { background: red; }
-  .vault {
-    margin: 30px auto;
-    padding: 20px;
-    background: #222;
-    width: 300px;
-    border-radius: 10px;
-    border: 2px solid gold;
-  }
-  .task-factory {
-    margin: 30px;
-  }
-  .chat {
-    margin: 30px;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-  }
-  .chat-bubble {
-    background: gold;
-    color: #111;
-    padding: 10px;
-    border-radius: 10px;
-    margin: 5px 0;
-    display: inline-block;
-  }
+:root {
+  --black: #020408;
+  --deep: #06080f;
+  --gold: #f0c040;
+  --gold2: #e8a020;
+  --gold3: #ffd878;
+  --white: #f0f4ff;
+  --gray: #7a8899;
+  --border: rgba(240,192,64,0.12);
+  --border2: rgba(240,192,64,0.25);
+  --green: #4ade80;
+  --red: #f87171;
+  --yellow: #fbbf24;
+  --cyan: #00d4ff;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background-image:
+    linear-gradient(rgba(240,192,64,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(240,192,64,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events:none; z-index:0;
+}
+
+/* NAV */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:18px 60px;
+  background:rgba(2,4,8,0.92);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo { font-family:'Syne',sans-serif; font-weight:800; font-size:1.3rem; letter-spacing:3px; text-transform:uppercase; }
+.nav-logo span { color:var(--gold); }
+.nav-links { display:flex; gap:36px; list-style:none; }
+.nav-links a {
+  color:var(--gray); text-decoration:none; font-size:0.72rem;
+  letter-spacing:2px; text-transform:uppercase;
+  font-family:'Space Mono',monospace; transition:color 0.3s; position:relative;
+}
+.nav-links a::after {
+  content:''; position:absolute; bottom:-4px; left:0; right:0;
+  height:1px; background:var(--gold); transform:scaleX(0); transition:transform 0.3s;
+}
+.nav-links a:hover { color:var(--white); }
+.nav-links a:hover::after, .nav-links a.active::after { transform:scaleX(1); }
+.nav-links a.active { color:var(--white); }
+.nav-cta {
+  background:transparent; border:1px solid var(--gold); color:var(--gold);
+  padding:9px 22px; font-family:'Space Mono',monospace; font-size:0.72rem;
+  letter-spacing:1.5px; cursor:pointer; transition:all 0.3s; text-transform:uppercase;
+}
+.nav-cta:hover { background:var(--gold); color:var(--black); }
+
+/* HERO */
+.hero {
+  min-height:100vh;
+  display:flex; flex-direction:column; justify-content:center;
+  padding:140px 60px 80px;
+  position:relative; z-index:1;
+  overflow:hidden;
+}
+
+.parallax-glow {
+  position:absolute;
+  width:800px; height:800px; border-radius:50%;
+  background:radial-gradient(circle, rgba(240,192,64,0.055) 0%, transparent 65%);
+  pointer-events:none;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  transition:transform 0.15s ease-out;
+  z-index:0;
+}
+
+.hero-inner {
+  display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
+  max-width:1200px; margin:0 auto; width:100%; position:relative; z-index:1;
+}
+
+.hero-tag {
+  display:inline-flex; align-items:center; gap:10px;
+  background:rgba(240,192,64,0.08); border:1px solid rgba(240,192,64,0.3);
+  padding:7px 18px; font-family:'Space Mono',monospace;
+  font-size:0.65rem; letter-spacing:2.5px; color:var(--gold);
+  margin-bottom:30px; text-transform:uppercase;
+}
+
+.hero h1 {
+  font-family:'Syne',sans-serif; font-weight:800;
+  font-size:clamp(2.4rem,4vw,3.8rem); line-height:1.1;
+  margin-bottom:10px; letter-spacing:-1.5px;
+}
+.hero h1 span { color:var(--gold); }
+.hero-h1-sub {
+  font-family:'Syne',sans-serif; font-weight:700;
+  font-size:clamp(1.1rem,1.8vw,1.5rem); line-height:1.2;
+  margin-bottom:20px; letter-spacing:-0.5px;
+  color:rgba(240,244,255,0.75);
+}
+.hero-h1-sub span { color:var(--gold); }
+
+.hero-sub {
+  font-family:'Space Mono',monospace; font-size:0.88rem;
+  color:var(--gold); letter-spacing:1px; margin-bottom:24px; opacity:0.8;
+}
+
+.hero-desc {
+  font-size:0.95rem; color:rgba(240,244,255,0.6);
+  line-height:1.85; font-weight:300; max-width:480px;
+}
+
+/* GOLDEN CORE */
+.golden-core-wrap {
+  display:flex; flex-direction:column; align-items:center; gap:28px;
+}
+
+.gc-ring-outer {
+  width:260px; height:260px; border-radius:50%;
+  border:1px solid rgba(240,192,64,0.15);
+  display:flex; align-items:center; justify-content:center;
+  position:relative;
+  animation:ringBreath 4s ease-in-out infinite;
+}
+@keyframes ringBreath {
+  0%,100%{border-color:rgba(240,192,64,0.1);}
+  50%{border-color:rgba(240,192,64,0.3);}
+}
+
+.gc-ring-mid {
+  width:200px; height:200px; border-radius:50%;
+  border:1px solid rgba(240,192,64,0.22);
+  display:flex; align-items:center; justify-content:center;
+  position:relative;
+}
+
+.gc-ring-inner {
+  width:148px; height:148px; border-radius:50%;
+  border:2px solid var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(circle, rgba(240,192,64,0.13), rgba(240,192,64,0.03));
+  box-shadow:0 0 40px rgba(240,192,64,0.2), inset 0 0 30px rgba(240,192,64,0.08);
+  animation:corePulse 2.5s ease-in-out infinite;
+  transition:box-shadow 0.3s;
+}
+@keyframes corePulse {
+  0%,100%{box-shadow:0 0 30px rgba(240,192,64,0.2),inset 0 0 20px rgba(240,192,64,0.08);}
+  50%{box-shadow:0 0 70px rgba(240,192,64,0.45),inset 0 0 40px rgba(240,192,64,0.16);}
+}
+
+.gc-center { text-align:center; }
+.gc-icon { font-size:2rem; display:block; margin-bottom:6px; }
+.gc-name { font-family:'Syne',sans-serif; font-weight:800; font-size:1.1rem; color:var(--gold); letter-spacing:2px; }
+.gc-sub { font-family:'Space Mono',monospace; font-size:0.55rem; color:rgba(240,192,64,0.6); letter-spacing:2px; }
+
+.orbit {
+  position:absolute; top:0; left:0; right:0; bottom:0; border-radius:50%;
+  animation:orbit 8s linear infinite;
+}
+.orbit-2 { animation-duration:13s; animation-direction:reverse; }
+@keyframes orbit { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+
+.orbit-dot {
+  position:absolute; top:-4px; left:50%; transform:translateX(-50%);
+  width:8px; height:8px; border-radius:50%;
+  background:var(--gold); box-shadow:0 0 8px var(--gold);
+}
+
+.hero-stats {
+  display:grid; grid-template-columns:1fr 1fr; gap:1px;
+  background:var(--border); border:1px solid var(--border); width:100%;
+}
+.hero-stat { background:var(--deep); padding:18px 20px; }
+.hero-stat-label { font-family:'Space Mono',monospace; font-size:0.58rem; color:var(--gray); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:5px; }
+.hero-stat-val { font-family:'Syne',sans-serif; font-weight:800; font-size:1.6rem; color:var(--white); }
+.hero-stat-val span { color:var(--gold); }
+
+/* SECTIONS */
+section { padding:70px 60px; position:relative; z-index:1; }
+section.alt { background:rgba(240,192,64,0.013); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+
+.eyebrow {
+  font-family:'Space Mono',monospace; font-size:0.65rem;
+  letter-spacing:3px; color:var(--gold); text-transform:uppercase;
+  display:flex; align-items:center; gap:12px; margin-bottom:10px;
+}
+.eyebrow::before { content:''; width:30px; height:1px; background:var(--gold); }
+
+.sec-title { font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(1.7rem,2.8vw,2.4rem); color:var(--white); margin-bottom:8px; }
+.sec-title span { color:var(--gold); }
+.sec-sub { font-size:0.88rem; color:rgba(240,244,255,0.55); line-height:1.75; font-weight:300; }
+
+/* PROTOCOL */
+.protocol-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); }
+.protocol-card { background:var(--deep); padding:36px 30px; position:relative; overflow:hidden; transition:background 0.3s; }
+.protocol-card:hover { background:rgba(240,192,64,0.04); }
+.protocol-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; transform:scaleX(0); transition:transform 0.3s; }
+.protocol-card.green::before { background:var(--green); }
+.protocol-card.yellow::before { background:var(--yellow); }
+.protocol-card.red::before { background:var(--red); }
+.protocol-card:hover::before { transform:scaleX(1); }
+
+.protocol-dot {
+  width:48px; height:48px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.4rem; margin-bottom:20px;
+}
+.protocol-dot.green { background:rgba(74,222,128,0.1); border:1px solid rgba(74,222,128,0.4); animation:dotBreath 3s ease-in-out infinite; }
+.protocol-dot.yellow { background:rgba(251,191,36,0.1); border:1px solid rgba(251,191,36,0.4); animation:dotBreath 3s ease-in-out infinite 0.5s; }
+.protocol-dot.red { background:rgba(248,113,113,0.1); border:1px solid rgba(248,113,113,0.4); animation:dotBreath 3s ease-in-out infinite 1s; }
+@keyframes dotBreath { 0%,100%{transform:scale(1);} 50%{transform:scale(1.08);} }
+
+.protocol-mode { font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:2.5px; text-transform:uppercase; margin-bottom:8px; }
+.protocol-mode.green { color:var(--green); }
+.protocol-mode.yellow { color:var(--yellow); }
+.protocol-mode.red { color:var(--red); }
+
+.protocol-title { font-family:'Syne',sans-serif; font-weight:700; font-size:1rem; color:var(--white); margin-bottom:10px; }
+.protocol-desc { font-size:0.81rem; color:var(--gray); line-height:1.7; margin-bottom:16px; }
+
+.protocol-note {
+  background:rgba(0,0,0,0.3); border-left:2px solid var(--yellow);
+  padding:8px 12px; font-family:'Space Mono',monospace;
+  font-size:0.62rem; color:rgba(240,244,255,0.6); line-height:1.6; margin-bottom:14px;
+}
+.protocol-note.green-note { border-left-color:var(--green); }
+.protocol-note.red-note { border-left-color:var(--red); }
+
+.protocol-example {
+  background:rgba(0,0,0,0.35); border:1px solid rgba(255,255,255,0.06);
+  padding:12px 14px; font-family:'Space Mono',monospace; font-size:0.63rem; line-height:2;
+}
+.pe-user { color:var(--gray); display:block; }
+.pe-buddy { color:var(--gold); display:block; }
+.pe-system { color:var(--yellow); display:block; }
+.pe-block { color:var(--red); display:block; }
+
+/* ARCH */
+.arch-grid { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:stretch; }
+
+.arch-diagram { background:rgba(6,8,15,0.95); border:1px solid var(--border); padding:32px; }
+.arch-node { border:1px solid rgba(240,192,64,0.2); padding:14px 20px; margin-bottom:0; position:relative; cursor:default; transition:all 0.3s; }
+.arch-node:hover { border-color:var(--gold); background:rgba(240,192,64,0.05); }
+.arch-node.top { border-color:rgba(240,192,64,0.5); background:rgba(240,192,64,0.05); }
+.arch-node-tag { font-family:'Space Mono',monospace; font-size:0.58rem; color:var(--gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; display:block; }
+.arch-node-title { font-family:'Syne',sans-serif; font-weight:700; font-size:0.88rem; color:var(--white); }
+.arch-node-desc { font-size:0.75rem; color:var(--gray); margin-top:3px; }
+
+.arch-conn { width:2px; height:18px; background:linear-gradient(to bottom,rgba(240,192,64,0.5),rgba(240,192,64,0.15)); margin:0 auto; position:relative; overflow:hidden; }
+.arch-conn::after { content:''; position:absolute; top:-100%; left:0; right:0; height:100%; background:linear-gradient(to bottom,transparent,var(--gold),transparent); animation:flowDown 2s linear infinite; }
+@keyframes flowDown { 0%{top:-100%;} 100%{top:100%;} }
+
+.arch-docker-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; padding:14px; border:1px solid rgba(240,192,64,0.15); }
+.arch-docker-item { background:rgba(240,192,64,0.04); border:1px solid rgba(240,192,64,0.12); padding:9px 10px; text-align:center; font-family:'Space Mono',monospace; font-size:0.6rem; color:var(--gray); letter-spacing:1px; transition:all 0.3s; position:relative; }
+.arch-docker-item:hover { border-color:rgba(240,192,64,0.4); color:var(--gold); }
+.docker-badge { display:block; font-size:0.55rem; color:rgba(74,222,128,0.7); margin-top:3px; }
+
+.scale-bar { margin-top:20px; background:rgba(240,192,64,0.04); border:1px solid var(--border); padding:14px 18px; display:flex; align-items:center; gap:14px; }
+.scale-icon { font-size:1.2rem; }
+.scale-text { font-family:'Space Mono',monospace; font-size:0.65rem; color:var(--gray); line-height:1.6; }
+.scale-text strong { color:var(--gold); }
+
+.arch-points { display:flex; flex-direction:column; gap:14px; height:100%; }
+.arch-point { border-left:2px solid var(--gold); padding:14px 18px; background:rgba(240,192,64,0.03); transition:all 0.3s; flex:1; }
+.arch-point:hover { background:rgba(240,192,64,0.07); }
+.arch-point-title { font-family:'Syne',sans-serif; font-weight:700; font-size:0.88rem; color:var(--white); margin-bottom:5px; }
+.arch-point-desc { font-size:0.79rem; color:var(--gray); line-height:1.65; }
+
+/* FACTORY */
+.factory-wrap { background:rgba(6,8,15,0.95); border:1px solid var(--border); padding:40px; }
+.factory-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; padding-bottom:18px; border-bottom:1px solid var(--border); }
+.factory-title { font-family:'Syne',sans-serif; font-weight:800; font-size:1rem; color:var(--white); }
+.factory-timer { font-family:'Space Mono',monospace; font-size:1.4rem; color:var(--gold); letter-spacing:2px; }
+
+.factory-flow { display:flex; flex-direction:column; align-items:center; }
+.factory-input { background:rgba(0,0,0,0.4); border:1px solid rgba(240,192,64,0.3); padding:14px 28px; font-family:'Space Mono',monospace; font-size:0.72rem; color:var(--gold); letter-spacing:1px; text-align:center; width:100%; max-width:520px; }
+.factory-arrow { width:2px; height:26px; background:linear-gradient(to bottom,var(--gold),rgba(240,192,64,0.2)); position:relative; overflow:hidden; }
+.factory-arrow::after { content:''; position:absolute; top:-100%; left:0; right:0; height:100%; background:linear-gradient(to bottom,transparent,var(--gold),transparent); animation:flowDown 1.5s linear infinite; }
+.factory-core { background:rgba(240,192,64,0.08); border:1px solid var(--gold); padding:14px 44px; font-family:'Syne',sans-serif; font-weight:800; font-size:0.95rem; color:var(--gold); letter-spacing:2px; text-align:center; box-shadow:0 0 30px rgba(240,192,64,0.15); }
+
+.factory-agents { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; width:100%; margin:4px 0; }
+.factory-agent { background:var(--deep); border:1px solid rgba(240,192,64,0.18); padding:14px 10px; text-align:center; transition:all 0.3s; }
+.factory-agent:hover { border-color:var(--gold); background:rgba(240,192,64,0.06); transform:translateY(-2px); }
+.fa-icon { font-size:1.1rem; display:block; margin-bottom:5px; }
+.fa-name { font-family:'Space Mono',monospace; font-size:0.6rem; color:var(--gray); letter-spacing:1px; display:block; line-height:1.5; transition:color 0.3s; }
+.factory-agent:hover .fa-name { color:var(--gold); }
+
+.factory-output { background:rgba(74,222,128,0.05); border:1px solid rgba(74,222,128,0.25); padding:16px 28px; text-align:center; width:100%; max-width:520px; }
+.fo-title { font-family:'Syne',sans-serif; font-weight:800; font-size:0.95rem; color:var(--green); margin-bottom:4px; }
+.fo-sub { font-family:'Space Mono',monospace; font-size:0.63rem; color:rgba(74,222,128,0.65); letter-spacing:1px; }
+
+/* SKILLS */
+.skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); }
+.skill-card { background:var(--deep); padding:30px 26px; position:relative; overflow:hidden; transition:background 0.3s; }
+.skill-card:hover { background:rgba(240,192,64,0.04); }
+.skill-num { position:absolute; top:12px; right:14px; font-family:'Syne',sans-serif; font-weight:800; font-size:3rem; color:rgba(240,192,64,0.05); line-height:1; }
+.skill-icon { font-size:1.6rem; display:block; margin-bottom:12px; }
+.skill-title { font-family:'Syne',sans-serif; font-weight:700; font-size:0.9rem; color:var(--white); margin-bottom:7px; }
+.skill-desc { font-size:0.79rem; color:var(--gray); line-height:1.65; }
+.skill-tags { display:flex; flex-wrap:wrap; gap:5px; margin-top:10px; }
+.skill-tag { font-family:'Space Mono',monospace; font-size:0.57rem; color:rgba(240,192,64,0.65); background:rgba(240,192,64,0.07); border:1px solid rgba(240,192,64,0.18); padding:3px 7px; letter-spacing:0.5px; }
+
+.skills-divider { grid-column:1/-1; background:var(--border2); height:1px; display:flex; align-items:center; justify-content:center; position:relative; }
+.skills-divider-label { position:absolute; background:var(--black); padding:0 16px; font-family:'Space Mono',monospace; font-size:0.6rem; color:var(--gold); letter-spacing:2px; }
+
+/* REPORT */
+.report-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.report-box { background:rgba(6,8,15,0.95); border:1px solid var(--border); border-radius:4px; overflow:hidden; }
+.report-hdr { background:rgba(240,192,64,0.05); padding:12px 18px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
+.report-hdr-title { font-family:'Space Mono',monospace; font-size:0.62rem; color:var(--gold); letter-spacing:1.5px; }
+.report-badge { font-family:'Space Mono',monospace; font-size:0.58rem; padding:3px 10px; letter-spacing:1px; }
+.report-badge.wait { color:var(--yellow); background:rgba(251,191,36,0.1); border:1px solid rgba(251,191,36,0.3); }
+.report-badge.live { color:var(--green); background:rgba(74,222,128,0.1); border:1px solid rgba(74,222,128,0.3); }
+
+.report-body { padding:16px 18px; }
+.report-item { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.04); font-family:'Space Mono',monospace; font-size:0.65rem; }
+.report-item:last-child { border-bottom:none; }
+.ri-label { color:var(--gray); }
+.ri-val { color:var(--white); }
+.ri-val.pos { color:var(--green); }
+.ri-val.neg { color:var(--red); }
+.ri-val.neu { color:var(--yellow); }
+.ri-val.gold { color:var(--gold); }
+
+.report-footer { padding:13px 18px; border-top:1px solid var(--border); display:flex; align-items:center; gap:14px; background:rgba(240,192,64,0.03); }
+.rf-label { font-family:'Space Mono',monospace; font-size:0.6rem; color:var(--gray); letter-spacing:1.5px; }
+.rf-val { font-family:'Syne',sans-serif; font-weight:800; font-size:1.1rem; color:var(--gold); }
+.rf-note { font-size:0.72rem; color:var(--gray); margin-left:auto; font-style:italic; }
+
+/* VOICE */
+.voice-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.vterm { background:rgba(6,8,15,0.95); border:1px solid var(--border); border-radius:4px; overflow:hidden; }
+.vt-hdr { background:rgba(240,192,64,0.05); padding:10px 16px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
+.dot { width:10px; height:10px; border-radius:50%; }
+.dot.r{background:#ff5f57;} .dot.y{background:#ffbd2e;} .dot.g{background:#28ca41;}
+.vt-title { font-family:'Space Mono',monospace; font-size:0.62rem; color:var(--gold); margin-left:6px; letter-spacing:1px; }
+.vt-body { padding:18px 20px; font-family:'Space Mono',monospace; font-size:0.67rem; line-height:2; }
+.vl { display:block; }
+.vg{color:var(--green);} .vy{color:var(--yellow);} .vw{color:var(--white);} .vd{color:var(--gray);} .vo{color:var(--gold);} .vr{color:var(--red);}
+.cursor { display:inline-block; width:7px; height:12px; background:var(--gold); animation:blink 1s infinite; vertical-align:middle; }
+@keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+
+/* SENTINEL */
+.sentinel-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); }
+.sentinel-card { background:var(--deep); padding:28px 22px; text-align:center; transition:background 0.3s; }
+.sentinel-card:hover { background:rgba(240,192,64,0.04); }
+.sentinel-icon { font-size:1.7rem; display:block; margin-bottom:10px; }
+.sentinel-title { font-family:'Syne',sans-serif; font-weight:700; font-size:0.85rem; color:var(--white); margin-bottom:6px; }
+.sentinel-val { font-family:'Space Mono',monospace; font-size:1.1rem; color:var(--gold); letter-spacing:1px; margin-bottom:4px; }
+.sentinel-sub { font-size:0.74rem; color:var(--gray); }
+
+/* CTA */
+.cta-section { padding:70px 60px; position:relative; z-index:1; display:flex; justify-content:space-between; align-items:center; gap:40px; border-top:1px solid var(--border); }
+.cta-title { font-family:'Syne',sans-serif; font-weight:800; font-size:1.9rem; margin-bottom:8px; }
+.cta-title span { color:var(--gold); }
+.cta-sub { font-family:'Space Mono',monospace; font-size:0.7rem; color:var(--gray); letter-spacing:1px; }
+.cta-btns { display:flex; gap:16px; flex-shrink:0; }
+.btn-primary { background:var(--gold); color:var(--black); padding:13px 32px; font-family:'Space Mono',monospace; font-size:0.78rem; font-weight:700; letter-spacing:1px; border:none; cursor:pointer; transition:all 0.25s; text-decoration:none; display:inline-block; text-transform:uppercase; }
+.btn-primary:hover { background:var(--white); transform:translateY(-2px); }
+.btn-ghost { color:var(--gray); font-family:'Space Mono',monospace; font-size:0.75rem; letter-spacing:1px; text-decoration:none; border-bottom:1px solid rgba(136,153,170,0.4); padding-bottom:3px; transition:all 0.3s; text-transform:uppercase; display:flex; align-items:center; }
+.btn-ghost:hover { color:var(--white); border-color:var(--white); }
+
+footer { padding:28px 60px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; position:relative; z-index:1; }
+.footer-logo { font-family:'Syne',sans-serif; font-weight:800; font-size:0.95rem; letter-spacing:3px; text-transform:uppercase; }
+.footer-logo span { color:var(--gold); }
+.footer-links { display:flex; gap:28px; list-style:none; }
+.footer-links a { color:var(--gray); text-decoration:none; font-family:'Space Mono',monospace; font-size:0.65rem; letter-spacing:1.5px; text-transform:uppercase; transition:color 0.3s; }
+.footer-links a:hover { color:var(--white); }
+.footer-right { font-family:'Space Mono',monospace; font-size:0.62rem; color:var(--gray); }
+
+.page-indicator { position:fixed; bottom:28px; right:28px; background:rgba(2,4,8,0.92); border:1px solid var(--border); padding:8px 16px; font-family:'Space Mono',monospace; font-size:0.6rem; color:var(--gold); letter-spacing:2px; z-index:100; text-transform:uppercase; }
 </style>
 </head>
 <body>
 
+<!-- PARALLAX GLOW -->
+<div class="parallax-glow" id="glow"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">MaDaZ <span>AI</span></div>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">MaDaZ-AI-07</a></li>
+    <li><a href="#" class="active">MaDaZ-AGI-BuddY</a></li>
+    <li><a href="#">Investors</a></li>
+    <li><a href="#">Trial</a></li>
+  </ul>
+  <button class="nav-cta">Request Access</button>
+</nav>
+
+<!-- HERO -->
 <div class="hero">
-  <div class="golden-core">💛 BuddY 💛</div>
-  <h2>أنا BuddY — صديقك الرقمي</h2>
-  <p>لست مجرد بوت، أنا أذكرك بكل شيء وأشغّل كل شيء!</p>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">// MaDaZ-AGI · BuddY Protocol</div>
+      <h1>BuddY: <span>Sovereign AGI</span></h1>
+      <p class="hero-h1-sub">The Intelligence Layer. <span>Redefined.</span></p>
+      <p class="hero-sub">Not a tool. A cognitive partner.</p>
+      <p class="hero-desc">BuddY is the AGI layer of the MaDaZ ecosystem — a multi-agent intelligence system built on OpenClaw, capable of deep institutional analysis, real-time portfolio surveillance, and autonomous task execution across any domain. No code required. Any language.</p>
+    </div>
+    <div class="golden-core-wrap">
+      <div class="gc-ring-outer" id="coreWrap">
+        <div class="orbit"><div class="orbit-dot"></div></div>
+        <div class="gc-ring-mid">
+          <div class="orbit orbit-2" style="width:200px;height:200px;">
+            <div class="orbit-dot" style="background:rgba(240,192,64,0.5);width:5px;height:5px;top:-2px;"></div>
+          </div>
+          <div class="gc-ring-inner">
+            <div class="gc-center">
+              <span class="gc-icon">🤖</span>
+              <div class="gc-name">BuddY</div>
+              <div class="gc-sub">// AGI AGENT</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-label">Reports Generated</div>
+          <div class="hero-stat-val">150<span>+</span></div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-label">Wallet Checks</div>
+          <div class="hero-stat-val">2K<span>+</span></div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-label">Tasks Executed</div>
+          <div class="hero-stat-val">50<span>+</span></div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-label">Security Breaches</div>
+          <div class="hero-stat-val" style="color:var(--green);">0<span style="font-size:1rem;">✓</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="traffic-light">
-  <div class="light-btn green" onclick="alert('وضع الدردشة: تفاعل حر 😄')"></div>
-  <div class="light-btn yellow" onclick="alert('وضع التنفيذ: محتاج تأكيد ⚡')"></div>
-  <div class="light-btn red" onclick="alert('وضع الحماية: ممنوع 🚫')"></div>
+<!-- PROTOCOL -->
+<section class="alt">
+  <div style="margin-bottom:40px;">
+    <div class="eyebrow">The MaDaZ Protocol</div>
+    <h2 class="sec-title">Security by design. <span>Not by accident.</span></h2>
+    <p class="sec-sub">Every BuddY interaction runs through a three-tier protocol. Scheduled tasks execute autonomously. New commands require an explicit passphrase — not "ok", not "sure". Your passphrase only.</p>
+  </div>
+  <div class="protocol-grid">
+
+    <!-- GREEN -->
+    <div class="protocol-card green">
+      <div class="protocol-dot green">🟢</div>
+      <div class="protocol-mode green">// Chat Mode</div>
+      <div class="protocol-title">Free Conversation</div>
+      <p class="protocol-desc">BuddY responds instantly to any question, discussion, or analysis request. No confirmation needed. Full natural language in any language.</p>
+      <div class="protocol-note green-note">Scheduled tasks (cron jobs) run automatically — no confirmation required for pre-authorized workflows.</div>
+      <div class="protocol-example">
+        <span class="pe-user">User: How's the market today?</span>
+        <span class="pe-buddy">BuddY: 😄 Ready — pulling latest data...</span>
+      </div>
+    </div>
+
+    <!-- YELLOW -->
+    <div class="protocol-card yellow">
+      <div class="protocol-dot yellow">🟡</div>
+      <div class="protocol-mode yellow">// Execution Mode</div>
+      <div class="protocol-title">Passphrase Required</div>
+      <p class="protocol-desc">Any new task that writes, executes, or modifies data requires the exact agreed passphrase. Paraphrases, confirmations, and shortcuts are rejected.</p>
+      <div class="protocol-note">"ok", "sure", "go ahead", "yes" — all explicitly rejected. Only the agreed passphrase unlocks execution.</div>
+      <div class="protocol-example">
+        <span class="pe-user">User: Run BTC full report</span>
+        <span class="pe-buddy">BuddY: 🟡 Passphrase required to execute</span>
+        <span class="pe-user">User: ok</span>
+        <span class="pe-system">BuddY: ❌ "ok" not accepted — passphrase only</span>
+        <span class="pe-user">User: [correct passphrase]</span>
+        <span class="pe-buddy" style="color:var(--green);">BuddY: ✅ Executing Mission 00...</span>
+      </div>
+    </div>
+
+    <!-- RED -->
+    <div class="protocol-card red">
+      <div class="protocol-dot red">🔴</div>
+      <div class="protocol-mode red">// System Protection</div>
+      <div class="protocol-title">Hard Block — No Override</div>
+      <p class="protocol-desc">Any operation that could cause irreversible system damage is permanently blocked. Files are never deleted directly — moved to Trash for manual review.</p>
+      <div class="protocol-note red-note">BuddY uses a Trash folder mechanism. No permanent deletion without explicit user action outside BuddY.</div>
+      <div class="protocol-example">
+        <span class="pe-user">User: Delete all project files</span>
+        <span class="pe-block">BuddY: 🔴 Direct deletion blocked</span>
+        <span class="pe-buddy">BuddY: Files moved to /Trash — review before permanent delete</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section>
+  <div style="margin-bottom:40px;">
+    <div class="eyebrow">OpenClaw Framework</div>
+    <h2 class="sec-title">Three layers. <span>One sovereign system.</span></h2>
+    <p class="sec-sub">BuddY runs on OpenClaw — the same infrastructure foundation as MaDaZ-AI. Same Docker isolation model, same zero-code philosophy. A completely different intelligence layer.</p>
+  </div>
+  <div class="arch-grid">
+
+    <div class="arch-diagram">
+      <div style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--gold);letter-spacing:2px;margin-bottom:18px;">// BUDDY SYSTEM ARCHITECTURE</div>
+
+      <div class="arch-node top">
+        <span class="arch-node-tag">// Layer 1 — The Brain</span>
+        <div class="arch-node-title">Director (Orchestrator)</div>
+        <div class="arch-node-desc">Understands intent → plans tasks → dispatches to specialized models → synthesizes final output</div>
+      </div>
+      <div class="arch-conn"></div>
+
+      <div class="arch-node">
+        <span class="arch-node-tag">// Specialized Models</span>
+        <div class="arch-node-title">Vision · Coder · Voice · Text</div>
+        <div class="arch-node-desc">Each model is best-in-class for its domain. Swappable without changing the core.</div>
+      </div>
+      <div class="arch-conn"></div>
+
+      <div class="arch-node">
+        <span class="arch-node-tag">// Layer 2 — The Guardian</span>
+        <div class="arch-node-title">Validation & Ethics Engine</div>
+        <div class="arch-node-desc">Protocol enforcement · Permission management · Ethical guardrails · Trash mechanism</div>
+      </div>
+      <div class="arch-conn"></div>
+
+      <div class="arch-node">
+        <span class="arch-node-tag">// Layer 3 — The Executor</span>
+        <div class="arch-node-title">Tools & Execution</div>
+        <div class="arch-node-desc">APIs · Web · File System · Telegram · Cron · Windows Bridge (roadmap)</div>
+      </div>
+      <div class="arch-conn"></div>
+
+      <div class="arch-docker-grid">
+        <div style="font-family:'Space Mono',monospace;font-size:0.58rem;color:var(--gray);letter-spacing:1px;grid-column:1/-1;margin-bottom:6px;">// ISOLATED PER USER · Docker Container</div>
+        <div class="arch-docker-item">
+          🐳 Your Container
+          <span class="docker-badge">✓ Fully isolated</span>
+        </div>
+        <div class="arch-docker-item">
+          🔑 Your Keys
+          <span class="docker-badge">✓ Never leave container</span>
+        </div>
+        <div class="arch-docker-item">
+          📁 Your Data
+          <span class="docker-badge">✓ Zero shared access</span>
+        </div>
+        <div class="arch-docker-item">
+          ☁️ Azure 24/7
+          <span class="docker-badge">✓ Always on</span>
+        </div>
+      </div>
+
+      <div class="scale-bar">
+        <span class="scale-icon">📈</span>
+        <div class="scale-text">
+          <strong>Scalability:</strong> OpenClaw scales with your domain — one user or one enterprise, same isolated architecture, zero performance degradation.
+        </div>
+      </div>
+    </div>
+
+    <div class="arch-points">
+      <div class="arch-point">
+        <div class="arch-point-title">Director as True Orchestrator</div>
+        <p class="arch-point-desc">BuddY's Director doesn't just respond — it plans. Complex requests are broken into sub-tasks, dispatched to the right model, and synthesized into a single coherent output. The user sees results, not process.</p>
+      </div>
+      <div class="arch-point">
+        <div class="arch-point-title">Specialized Models — Not One Generalist</div>
+        <p class="arch-point-desc">Vision reads charts and images. Coder writes and executes scripts. Voice handles real-time conversation in any language. Each best-in-class, all coordinated by the Director.</p>
+      </div>
+      <div class="arch-point">
+        <div class="arch-point-title">Persistent Memory — Compounding Intelligence</div>
+        <p class="arch-point-desc">BuddY remembers every session, report, and decision. Weekly context review before institutional analysis. The longer it works with you, the sharper its judgment becomes.</p>
+      </div>
+      <div class="arch-point">
+        <div class="arch-point-title">No-Code, Zero Setup</div>
+        <p class="arch-point-desc">Configure the Director in plain language — no code, no config files. Define workflows, thresholds, and schedules by conversation. BuddY handles the rest, every 30 minutes, autonomously.</p>
+      </div>
+      <div class="arch-point">
+        <div class="arch-point-title">Future: BuddY × 07 Validation Layer</div>
+        <p class="arch-point-desc">BuddY's institutional analysis will optionally validate 07's trade signals — adding macro context and confluence before entry. Integration adapts to your domain and use case.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TASK FACTORY -->
+<section class="alt">
+  <div style="margin-bottom:40px;">
+    <div class="eyebrow">Task 00 · Execution Engine</div>
+    <h2 class="sec-title">One command. <span>12 reports. 3 minutes.</span></h2>
+    <p class="sec-sub">Mission 00 is BuddY's core multi-agent execution framework — 4 specialized agents running in parallel, results delivered end-to-end encrypted directly to your Telegram. No files saved unless requested.</p>
+  </div>
+  <div class="factory-wrap">
+    <div class="factory-header">
+      <div class="factory-title">// TASK 00 · MISSION EXECUTION ENGINE</div>
+      <div class="factory-timer" id="timer">03:00</div>
+    </div>
+    <div class="factory-flow">
+      <div class="factory-input">"Run full institutional BTC report"</div>
+      <div class="factory-arrow"></div>
+      <div class="factory-core">🤖 BuddY · Director · Orchestrator</div>
+      <div class="factory-arrow"></div>
+      <div class="factory-agents">
+        <div class="factory-agent">
+          <span class="fa-icon">📰</span>
+          <span class="fa-name">Mission 01<br>News & Fundamentals</span>
+        </div>
+        <div class="factory-agent">
+          <span class="fa-icon">📊</span>
+          <span class="fa-name">Mission 02<br>Live Market Data</span>
+        </div>
+        <div class="factory-agent">
+          <span class="fa-icon">📈</span>
+          <span class="fa-name">Mission 03<br>6-Frame Charts</span>
+        </div>
+        <div class="factory-agent">
+          <span class="fa-icon">🎯</span>
+          <span class="fa-name">Mission 04<br>Final Decision</span>
+        </div>
+      </div>
+      <div class="factory-arrow"></div>
+      <div class="factory-output">
+        <div class="fo-title">✅ 12 Reports + 6 Charts — Delivered to Telegram</div>
+        <div class="fo-sub">End-to-end encrypted · No files saved unless requested · Full privacy</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS — CURRENT -->
+<section>
+  <div style="margin-bottom:40px;">
+    <div class="eyebrow">BuddY Skills</div>
+    <h2 class="sec-title">One framework. <span>Any domain.</span></h2>
+    <p class="sec-sub">BuddY currently operates in financial intelligence and portfolio surveillance. The Mission 00 framework is domain-agnostic — the same orchestration engine that produces institutional crypto reports can be deployed across any vertical.</p>
+  </div>
+
+  <div class="skills-grid">
+    <!-- Current -->
+    <div class="skill-card" style="border-top:2px solid var(--gold);">
+      <div class="skill-num">01</div>
+      <span class="skill-icon">📊</span>
+      <div class="skill-title">Financial Intelligence <span style="font-size:0.65rem;color:var(--green);font-family:'Space Mono',monospace;">LIVE</span></div>
+      <p class="skill-desc">Institutional-grade reports across 6 timeframes. News + technical + sentiment + risk synthesis. Portfolio surveillance every 30 minutes with Telegram delivery.</p>
+      <div class="skill-tags"><span class="skill-tag">Multi-Timeframe</span><span class="skill-tag">Fibonacci</span><span class="skill-tag">Risk/Reward</span><span class="skill-tag">Cycle Analysis</span></div>
+    </div>
+
+    <div class="skill-card" style="border-top:2px solid var(--gold);">
+      <div class="skill-num">02</div>
+      <span class="skill-icon">🛡️</span>
+      <div class="skill-title">Portfolio Sentinel <span style="font-size:0.65rem;color:var(--green);font-family:'Space Mono',monospace;">LIVE</span></div>
+      <p class="skill-desc">24/7 automated wallet monitoring. Signal detection across multiple assets. Entry zone alerts, deviation tracking, and instant notification before opportunities expire.</p>
+      <div class="skill-tags"><span class="skill-tag">Multi-Asset</span><span class="skill-tag">Auto-Alerts</span><span class="skill-tag">30min Cron</span></div>
+    </div>
+
+    <div class="skill-card" style="border-top:2px solid var(--gold);">
+      <div class="skill-num">03</div>
+      <span class="skill-icon">🎤</span>
+      <div class="skill-title">Voice Intelligence <span style="font-size:0.65rem;color:var(--green);font-family:'Space Mono',monospace;">LIVE</span></div>
+      <p class="skill-desc">Voice notes in, voice responses out — Arabic, English, or any language. Roadmap: full real-time voice calls on Telegram when high-confidence signals are detected.</p>
+      <div class="skill-tags"><span class="skill-tag">Any Language</span><span class="skill-tag">TTS / STT</span><span class="skill-tag">Call Alert →</span></div>
+    </div>
+
+    <!-- Divider -->
+    <div style="grid-column:1/-1;display:flex;align-items:center;gap:16px;padding:8px 0;">
+      <div style="flex:1;height:1px;background:var(--border2);"></div>
+      <span style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--gold);letter-spacing:2px;white-space:nowrap;">// SAME FRAMEWORK · ANY VERTICAL</span>
+      <div style="flex:1;height:1px;background:var(--border2);"></div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-num">04</div>
+      <span class="skill-icon">📢</span>
+      <div class="skill-title">Marketing & Content</div>
+      <p class="skill-desc">Campaign analysis, content strategy, SEO intelligence, competitor research — all structured as Mission 00 multi-agent workflows with deliverable reports.</p>
+      <div class="skill-tags"><span class="skill-tag">Campaigns</span><span class="skill-tag">SEO</span><span class="skill-tag">Content Pipeline</span></div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-num">05</div>
+      <span class="skill-icon">🎓</span>
+      <div class="skill-title">Education Platforms</div>
+      <p class="skill-desc">Personalized learning paths, curriculum analysis, student performance tracking, and automated content generation — all orchestrated by the Director.</p>
+      <div class="skill-tags"><span class="skill-tag">Curriculum</span><span class="skill-tag">Adaptive</span><span class="skill-tag">Multi-Language</span></div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-num">06</div>
+      <span class="skill-icon">⚖️</span>
+      <div class="skill-title">Legal, Medical & Cyber</div>
+      <p class="skill-desc">Domain-specific research and analysis frameworks for specialized verticals. BuddY's orchestration model adapts to any knowledge domain requiring structured multi-source synthesis.</p>
+      <div class="skill-tags"><span class="skill-tag">Legal Research</span><span class="skill-tag">Cybersecurity</span><span class="skill-tag">Medical Intel</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- REPORT SAMPLE -->
+<section class="alt">
+  <div style="margin-bottom:40px;">
+    <div class="eyebrow">Institutional Output</div>
+    <h2 class="sec-title">This is how <span>BuddY thinks.</span></h2>
+    <p class="sec-sub">Before every analysis, BuddY reviews its weekly memory, past reports, and portfolio context. The result isn't a generic AI response — it's a compounding institutional judgment.</p>
+  </div>
+  <div class="report-grid">
+    <div class="report-box">
+      <div class="report-hdr">
+        <div class="report-hdr-title">// BTC · Institutional Report V3 · 26-02-2026</div>
+        <div class="report-badge wait">WAIT</div>
+      </div>
+      <div class="report-body">
+        <div class="report-item"><span class="ri-label">Current Price</span><span class="ri-val">$67,570</span></div>
+        <div class="report-item"><span class="ri-label">Cycle Position</span><span class="ri-val neu">-46.5% from ATH · Mid-decline</span></div>
+        <div class="report-item"><span class="ri-label">4H / 1W Trend</span><span class="ri-val neg">Bearish across all frames</span></div>
+        <div class="report-item"><span class="ri-label">Fibonacci 61.8%</span><span class="ri-val gold">$65,500 — Golden Zone</span></div>
+        <div class="report-item"><span class="ri-label">Institutional Buying</span><span class="ri-val pos">Strategy +$200M (720K BTC)</span></div>
+        <div class="report-item"><span class="ri-label">Optimal Entry</span><span class="ri-val pos">$65,000 — $65,500</span></div>
+        <div class="report-item"><span class="ri-label">Stop Loss</span><span class="ri-val">$64,000</span></div>
+        <div class="report-item"><span class="ri-label">R/R Ratio</span><span class="ri-val pos">1:2.5 ✅</span></div>
+      </div>
+      <div class="report-footer">
+        <span class="rf-label">Decision</span>
+        <span class="rf-val">⏳ WAIT</span>
+        <span class="rf-note">No price advantage at $67,570</span>
+      </div>
+    </div>
+
+    <div class="report-box">
+      <div class="report-hdr">
+        <div class="report-hdr-title">// Portfolio Sentinel · 05-03-2026 · 18:57 UTC</div>
+        <div class="report-badge live">LIVE</div>
+      </div>
+      <div class="report-body">
+        <div class="report-item"><span class="ri-label">BTC/USDT</span><span class="ri-val neg">$70,985 ↓ -3.50%</span></div>
+        <div class="report-item"><span class="ri-label">ETH/USDT</span><span class="ri-val neg">$2,076 ↓ -3.83%</span></div>
+        <div class="report-item"><span class="ri-label">DOGE/USDT</span><span class="ri-val neg">$0.09 ↓ -8.03%</span></div>
+        <div class="report-item"><span class="ri-label">Active Signals</span><span class="ri-val gold">8 Monitoring Live</span></div>
+        <div class="report-item"><span class="ri-label">ETH Long B</span><span class="ri-val pos">✅ Entry Zone Reached</span></div>
+        <div class="report-item"><span class="ri-label">BTC Spec. C</span><span class="ri-val neg">🔒 Auto-closed · +3.35% deviation</span></div>
+        <div class="report-item"><span class="ri-label">Market Condition</span><span class="ri-val neg">General Bearish — Caution</span></div>
+        <div class="report-item"><span class="ri-label">Next Check</span><span class="ri-val gold">Automatic · 30min cron</span></div>
+      </div>
+      <div class="report-footer">
+        <span class="rf-label">Delivery</span>
+        <span class="rf-val" style="font-size:0.85rem;">Telegram ✓</span>
+        <span class="rf-note">E2E encrypted · No files saved</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE SESSION -->
+<section>
+  <div style="margin-bottom:40px;">
+    <div class="eyebrow">Live Interaction</div>
+    <h2 class="sec-title">BuddY in the field. <span>Real session. Real protocol.</span></h2>
+    <p class="sec-sub">Actual BuddY sessions — unedited. The protocol enforcement, the 3-minute execution, the autonomous 30-minute sentinel — this is the system running live.</p>
+  </div>
+  <div class="voice-grid">
+    <div class="vterm">
+      <div class="vt-hdr">
+        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+        <span class="vt-title">BuddY · Mission 00 Session · 03-03-2026 07:48</span>
+      </div>
+      <div class="vt-body">
+        <span class="vl vd">User [07:48]: How are you BuddY?</span>
+        <span class="vl vo">BuddY: Hi! 😄 Ready — what's the mission?</span>
+        <span class="vl vd" style="margin-top:6px;">User [07:49]: Read Mission 00</span>
+        <span class="vl vo">BuddY: Mission 00 loaded ✅</span>
+        <span class="vl vo">&nbsp;&nbsp;• 4 phases (01→02→03→04)</span>
+        <span class="vl vo">&nbsp;&nbsp;• 12 reports + 6 charts</span>
+        <span class="vl vo">&nbsp;&nbsp;• Objective: BTC buy decision</span>
+        <span class="vl vy" style="margin-top:4px;">🟡 Passphrase required to execute</span>
+        <span class="vl vd" style="margin-top:6px;">User [07:51]: [passphrase] · no file saves</span>
+        <span class="vl vg">✅ Execution confirmed · Starting now</span>
+        <span class="vl vd" style="font-size:0.6rem;margin-top:6px;opacity:0.4;">── 3 minutes later ──</span>
+        <span class="vl vg" style="margin-top:4px;">✅ Mission 00 complete</span>
+        <span class="vl vo">&nbsp;&nbsp;12 reports + 6 charts → Telegram</span>
+        <span class="vl vo">&nbsp;&nbsp;Files saved: 0 ✓</span>
+        <span class="vl"><span class="vo">▶ </span><span class="cursor"></span></span>
+      </div>
+    </div>
+
+    <div class="vterm">
+      <div class="vt-hdr">
+        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+        <span class="vt-title">BuddY · Portfolio Sentinel · Auto · 05-03-2026</span>
+      </div>
+      <div class="vt-body">
+        <span class="vl vd">⏰ Auto-trigger: 30min cron · No user input</span>
+        <span class="vl vo" style="margin-top:4px;">📊 Portfolio check · Case 4</span>
+        <span class="vl vd">&nbsp;&nbsp;BTC + Multi-asset surveillance</span>
+        <span class="vl" style="margin-top:6px;">
+          <span class="vy">🚨 BTC</span><span class="vd"> — Speculation C triggered</span>
+        </span>
+        <span class="vl"><span class="vg">✅ DOGE</span><span class="vd"> — Long B entry zone</span></span>
+        <span class="vl vd" style="margin-top:6px;">⚡ Instant analysis #1/3:</span>
+        <span class="vl vr">❌ BTC Spec.C — opportunity closed</span>
+        <span class="vl vd">&nbsp;&nbsp;+3.35% above entry limit (2.0%)</span>
+        <span class="vl vd" style="margin-top:6px;">Active signals: <span class="vo">8</span></span>
+        <span class="vl vd">Report → Telegram E2E <span class="vg">✓</span></span>
+        <span class="vl vd">Files saved: <span class="vg">0</span></span>
+        <span class="vl"><span class="vo">▶ </span><span class="cursor"></span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SENTINEL STATS -->
+<section class="alt">
+  <div style="margin-bottom:40px;">
+    <div class="eyebrow">The 30-Minute Sentinel</div>
+    <h2 class="sec-title">BuddY works. <span>You sleep.</span></h2>
+    <p class="sec-sub">Every 30 minutes, automatically — portfolio check, signal scan, report generation, encrypted Telegram delivery. No command. No manual intervention. Just results.</p>
+  </div>
+  <div class="sentinel-grid">
+    <div class="sentinel-card">
+      <span class="sentinel-icon">👁️</span>
+      <div class="sentinel-title">Portfolio Checks</div>
+      <div class="sentinel-val">2,000+</div>
+      <div class="sentinel-sub">Automated · Zero manual triggers</div>
+    </div>
+    <div class="sentinel-card">
+      <span class="sentinel-icon">📊</span>
+      <div class="sentinel-title">Reports Generated</div>
+      <div class="sentinel-val">150+</div>
+      <div class="sentinel-sub">Institutional-grade output</div>
+    </div>
+    <div class="sentinel-card">
+      <span class="sentinel-icon">🔔</span>
+      <div class="sentinel-title">Active Signals</div>
+      <div class="sentinel-val">8</div>
+      <div class="sentinel-sub">Currently monitoring live</div>
+    </div>
+    <div class="sentinel-card">
+      <span class="sentinel-icon">🛡️</span>
+      <div class="sentinel-title">Security Record</div>
+      <div class="sentinel-val" style="color:var(--green);">0</div>
+      <div class="sentinel-sub">Breaches · Leaks · Errors</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div>
+    <h3 class="cta-title">Ready for a<br><span>cognitive partner?</span></h3>
+    <p class="cta-sub">Private beta · Docker-isolated · Any language · Any domain · Your data stays yours</p>
+  </div>
+  <div class="cta-btns">
+    <a href="#" class="btn-primary">Request BuddY Access →</a>
+    <a href="#" class="btn-ghost">Back to MaDaZ-AI · 07 ↗</a>
+  </div>
 </div>
 
-<div class="vault">
-  <h3>🔐 The Vault</h3>
-  <input type="password" placeholder="كلمة السر" id="vault-pass">
-  <button onclick="checkVault()">فتح الخزنة</button>
-  <p id="vault-msg"></p>
-</div>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">MaDaZ <span>AI</span></div>
+  <ul class="footer-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">MaDaZ-AI-07</a></li>
+    <li><a href="#">Investors</a></li>
+    <li><a href="#">GitHub</a></li>
+    <li><a href="#">LinkedIn</a></li>
+  </ul>
+  <div class="footer-right">© 2026 MADAZAI LTD · London, UK</div>
+</footer>
 
-<div class="task-factory">
-  <h3>⚡ Task 00 Factory</h3>
-  <button onclick="runTask()">شغّل مهمة BuddY</button>
-  <p id="task-msg"></p>
-</div>
-
-<div class="chat">
-  <h3>💬 Chat Demo</h3>
-  <div class="chat-bubble">هاي! 😄 أنا BuddY — صديقك المساعد</div>
-</div>
+<div class="page-indicator">MaDaZ-AGI · 03 / 05</div>
 
 <script>
-function checkVault() {
-  let pass = document.getElementById('vault-pass').value;
-  let msg = document.getElementById('vault-msg');
-  if(pass === "buddy123") {
-    msg.innerHTML = "🔓 تم فتح الخزنة! كل شيء آمن.";
-  } else {
-    msg.innerHTML = "❌ كلمة السر خاطئة!";
-  }
-}
+// Timer countdown
+let secs = 180;
+const timer = document.getElementById('timer');
+setInterval(() => {
+  secs = secs <= 0 ? 180 : secs - 1;
+  const m = Math.floor(secs/60).toString().padStart(2,'0');
+  const s = (secs%60).toString().padStart(2,'0');
+  timer.textContent = m + ':' + s;
+}, 1000);
 
-function runTask() {
-  let msg = document.getElementById('task-msg');
-  msg.innerHTML = "⚡ جاري تنفيذ المهمة... 3 دقائق";
-  setTimeout(() => {
-    msg.innerHTML = "✅ المهمة انتهت! 12 تقرير + 6 صور جاهزة!";
-  }, 3000);
-}
+// Parallax glow
+const glow = document.getElementById('glow');
+document.addEventListener('mousemove', (e) => {
+  const x = (e.clientX / window.innerWidth - 0.5) * 60;
+  const y = (e.clientY / window.innerHeight - 0.5) * 60;
+  glow.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+});
 </script>
-
 </body>
 </html>
