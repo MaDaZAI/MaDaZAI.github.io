@@ -100,24 +100,30 @@ nav {
 
 .hero h1 {
   font-family:'Syne',sans-serif; font-weight:800;
-  font-size:clamp(2rem,3vw,3rem); line-height:1.05;
-  letter-spacing:-1px; margin-bottom:0;
+  line-height:1.0; margin-bottom:0;
 }
 .hero h1 em {
   font-style:normal; display:block;
-  font-size:clamp(2.6rem,4.5vw,4.4rem);
-  letter-spacing:-2px; line-height:1.0;
-  color:var(--white); margin-bottom:10px;
+  font-size:clamp(1rem,1.6vw,1.4rem);
+  letter-spacing:3px; line-height:1.2;
+  color:rgba(240,192,64,0.65); margin-bottom:10px;
+  text-transform:uppercase; font-weight:700;
 }
-.hero h1 span { color:var(--gold); }
+.hero h1 .sub-line {
+  display:block;
+  font-size:clamp(1.6rem,2.8vw,2.6rem);
+  letter-spacing:-1px; line-height:1.1;
+  color:var(--white);
+}
+.hero h1 .sub-line span { color:var(--gold); }
 
 .hero-sub {
-  font-family:'Space Mono',monospace; font-size:0.82rem;
-  color:rgba(240,192,64,0.7); letter-spacing:1px; margin-bottom:22px; margin-top:16px;
+  font-family:'Space Mono',monospace; font-size:0.8rem;
+  color:rgba(240,192,64,0.65); letter-spacing:1.5px; margin-top:18px; margin-bottom:18px;
 }
 
 .hero-desc {
-  font-size:0.92rem; color:rgba(240,244,255,0.55);
+  font-size:0.9rem; color:rgba(240,244,255,0.55);
   line-height:1.85; font-weight:300;
 }
 
@@ -170,39 +176,39 @@ section.alt { background:rgba(240,192,64,0.01); border-top:1px solid var(--borde
 
 /* BUILDER */
 .builder-grid {
-  display:grid; grid-template-columns:1fr 1.7fr; gap:48px;
+  display:grid; grid-template-columns:1fr 1.8fr; gap:40px;
   align-items:start; margin-top:48px;
 }
 
 .builder-card {
   background:rgba(240,192,64,0.04); border:1px solid var(--border2);
-  padding:32px; height:100%;
+  padding:36px;
 }
 
 .builder-initial {
   font-family:'Syne',sans-serif; font-weight:800;
-  font-size:4.5rem; color:var(--gold); line-height:1;
-  letter-spacing:-2px; margin-bottom:14px;
+  font-size:5.5rem; color:var(--gold); line-height:1;
+  letter-spacing:-3px; margin-bottom:16px;
 }
 
 .builder-title {
-  font-family:'Space Mono',monospace; font-size:0.6rem;
+  font-family:'Space Mono',monospace; font-size:0.65rem;
   letter-spacing:2px; color:var(--gray); text-transform:uppercase;
-  margin-bottom:4px;
+  margin-bottom:5px;
 }
 
 .builder-role {
   font-family:'Syne',sans-serif; font-weight:700;
-  font-size:0.95rem; color:var(--white); margin-bottom:24px;
-  border-bottom:1px solid var(--border); padding-bottom:16px;
+  font-size:1rem; color:var(--white); margin-bottom:24px;
+  border-bottom:1px solid var(--border); padding-bottom:18px;
 }
 
-.builder-badges { display:flex; flex-direction:column; gap:8px; }
+.builder-badges { display:flex; flex-direction:column; gap:9px; }
 .badge {
   display:flex; align-items:center; gap:10px;
   background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.06);
-  padding:9px 12px; font-family:'Space Mono',monospace;
-  font-size:0.61rem; letter-spacing:0.5px; color:rgba(240,244,255,0.65);
+  padding:10px 14px; font-family:'Space Mono',monospace;
+  font-size:0.67rem; letter-spacing:0.5px; color:rgba(240,244,255,0.7);
   transition:all 0.3s;
 }
 .badge:hover { border-color:rgba(240,192,64,0.3); color:var(--white); }
@@ -291,22 +297,22 @@ section.alt { background:rgba(240,192,64,0.01); border-top:1px solid var(--borde
 
 .product-card {
   background:var(--deep); border:1px solid rgba(240,192,64,0.13);
-  padding:24px 22px; transition:all 0.3s;
-  display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:center;
+  padding:26px 22px; transition:all 0.3s;
+  display:grid; grid-template-columns:auto 1fr auto; gap:16px; align-items:center;
 }
 .product-card:hover { border-color:var(--gold); background:rgba(240,192,64,0.04); }
 
 .product-num {
-  font-family:'Syne',sans-serif; font-weight:800; font-size:2rem;
-  color:rgba(240,192,64,0.1); line-height:1; transition:color 0.3s; min-width:36px;
+  font-family:'Syne',sans-serif; font-weight:800; font-size:2.2rem;
+  color:rgba(240,192,64,0.1); line-height:1; transition:color 0.3s; min-width:40px;
 }
-.product-card:hover .product-num { color:rgba(240,192,64,0.28); }
+.product-card:hover .product-num { color:rgba(240,192,64,0.3); }
 
 .product-name {
   font-family:'Syne',sans-serif; font-weight:700;
   font-size:0.95rem; color:var(--white); margin-bottom:5px;
 }
-.product-desc { font-size:0.8rem; color:var(--gray); line-height:1.5; }
+.product-desc { font-size:0.79rem; color:var(--gray); line-height:1.5; }
 
 .product-status {
   font-family:'Space Mono',monospace; font-size:0.56rem;
@@ -442,7 +448,7 @@ footer {
       <div class="hero-eyebrow">// Founder & Investors</div>
       <h1>
         <em>The Modern Builder</em>
-        Built by one. <span>Powered</span> by vision.
+        <span class="sub-line">Built by one. <span>Powered</span> by vision.</span>
       </h1>
       <p class="hero-sub">A.E — Founder & CEO, MaDaZ-AI</p>
       <p class="hero-desc">Empowering individual traders with AI capabilities at institutional-grade quality. Not an academic concept — a working system, built solo, running live in real markets today.</p>
@@ -481,8 +487,17 @@ footer {
     <div class="builder-card">
       <div class="builder-initial">A.E</div>
       <div class="builder-title">// Founder & CEO</div>
-      <div class="builder-role">MaDaZ-AI · MaDaZ-AGI · BuddY</div>
+      <div class="builder-role" style="margin-bottom:6px; padding-bottom:0; border-bottom:none;">MaDaZ-AI · LTD</div>
+      <div style="height:1px; background:var(--border); margin-bottom:16px;"></div>
       <div class="builder-badges">
+        <div class="badge" style="color:rgba(240,192,64,0.85); border-color:rgba(240,192,64,0.2);">
+          <span class="badge-dot"></span>
+          MaDaZ-AI · 07 &nbsp;✓
+        </div>
+        <div class="badge" style="color:rgba(240,192,64,0.85); border-color:rgba(240,192,64,0.2);">
+          <span class="badge-dot"></span>
+          MaDaZ-AGI · BuddY &nbsp;✓
+        </div>
         <div class="badge">
           <span class="badge-dot"></span>
           Microsoft for Startups — Accepted ✓
@@ -506,6 +521,10 @@ footer {
         <div class="badge">
           <span class="badge-dot"></span>
           System Live in Real Markets ✓
+        </div>
+        <div class="badge" style="border-color:rgba(240,192,64,0.25); color:rgba(240,192,64,0.85);">
+          <span class="badge-dot" style="background:var(--gold);"></span>
+          OpenClaw Bug Discovery — Reported & Resolved ✓
         </div>
       </div>
     </div>
@@ -694,15 +713,27 @@ footer {
 
 <div class="page-indicator">Founder & Investors · 04 / 05</div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// Count-up animation
+<script>
 function countUp(el) {
   const target = parseInt(el.dataset.target);
   const suffix = el.dataset.suffix || '';
   if (target === 0) { el.textContent = '0'; return; }
-  const duration = 1800;
-  const step = Math.ceil(duration / target);
+  const steps = 60;
+  const interval = 1800 / steps;
+  const increment = Math.ceil(target / steps);
   let current = 0;
+  el.textContent = '0' + suffix;
   const timer = setInterval(() => {
-    current += Math.max(1, Math.floor(target / 60));
-    if (cur
+    current += increment;
+    if (current >= target) { current = target; clearInterval(timer); }
+    el.textContent = current + suffix;
+  }, interval);
+}
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.mc-num[data-target]').forEach(el => countUp(el));
+  }, 400);
+});
+</script>
+</body>
+</html>
