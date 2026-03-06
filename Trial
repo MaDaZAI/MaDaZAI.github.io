@@ -122,7 +122,7 @@ footer { padding:28px 60px; border-top:1px solid var(--border); display:flex; ju
     <li><a href="#">Home</a></li>
     <li><a href="#">MaDaZ-AI-07</a></li>
     <li><a href="#">MaDaZ-AGI-BuddY</a></li>
-    <li><a href="#">Founder &amp; Investors</a></li>
+    <li><a href="#">Founder&amp;Investors</a></li>
     <li><a href="#" class="active">Trial</a></li>
   </ul>
   <button class="nav-cta">Request Trial</button>
