@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>MaDaZ-AGI-BuddY</title>
+<style>
+  body {
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    background: #111;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  .hero {
+    margin-top: 50px;
+  }
+  .golden-core {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background: radial-gradient(circle, gold 0%, orange 70%);
+    animation: pulse 2s infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+  }
+  .traffic-light {
+    margin: 30px;
+  }
+  .light-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    display: inline-block;
+    margin: 0 10px;
+    cursor: pointer;
+  }
+  .green { background: green; }
+  .yellow { background: yellow; }
+  .red { background: red; }
+  .vault {
+    margin: 30px auto;
+    padding: 20px;
+    background: #222;
+    width: 300px;
+    border-radius: 10px;
+    border: 2px solid gold;
+  }
+  .task-factory {
+    margin: 30px;
+  }
+  .chat {
+    margin: 30px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+  .chat-bubble {
+    background: gold;
+    color: #111;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px 0;
+    display: inline-block;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="golden-core">💛 BuddY 💛</div>
+  <h2>أنا BuddY — صديقك الرقمي</h2>
+  <p>لست مجرد بوت، أنا أذكرك بكل شيء وأشغّل كل شيء!</p>
+</div>
+
+<div class="traffic-light">
+  <div class="light-btn green" onclick="alert('وضع الدردشة: تفاعل حر 😄')"></div>
+  <div class="light-btn yellow" onclick="alert('وضع التنفيذ: محتاج تأكيد ⚡')"></div>
+  <div class="light-btn red" onclick="alert('وضع الحماية: ممنوع 🚫')"></div>
+</div>
+
+<div class="vault">
+  <h3>🔐 The Vault</h3>
+  <input type="password" placeholder="كلمة السر" id="vault-pass">
+  <button onclick="checkVault()">فتح الخزنة</button>
+  <p id="vault-msg"></p>
+</div>
+
+<div class="task-factory">
+  <h3>⚡ Task 00 Factory</h3>
+  <button onclick="runTask()">شغّل مهمة BuddY</button>
+  <p id="task-msg"></p>
+</div>
+
+<div class="chat">
+  <h3>💬 Chat Demo</h3>
+  <div class="chat-bubble">هاي! 😄 أنا BuddY — صديقك المساعد</div>
+</div>
+
+<script>
+function checkVault() {
+  let pass = document.getElementById('vault-pass').value;
+  let msg = document.getElementById('vault-msg');
+  if(pass === "buddy123") {
+    msg.innerHTML = "🔓 تم فتح الخزنة! كل شيء آمن.";
+  } else {
+    msg.innerHTML = "❌ كلمة السر خاطئة!";
+  }
+}
+
+function runTask() {
+  let msg = document.getElementById('task-msg');
+  msg.innerHTML = "⚡ جاري تنفيذ المهمة... 3 دقائق";
+  setTimeout(() => {
+    msg.innerHTML = "✅ المهمة انتهت! 12 تقرير + 6 صور جاهزة!";
+  }, 3000);
+}
+</script>
+
+</body>
+</html>
