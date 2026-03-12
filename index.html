@@ -55,13 +55,10 @@ nav {
   left: 0;
   right: 0;
   z-index: 100;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding: 18px 60px;
-
   background: rgba(2,4,8,0.88);
   backdrop-filter: blur(24px);
   border-bottom: 1px solid var(--border);
@@ -74,10 +71,9 @@ nav {
   text-decoration: none;
   flex-shrink: 0;
 }
-
 .nav-logo-img img {
   height: 72px;
-  width: 420px; /* تقدر تكبره براحتك */
+  width: 420px;
   object-fit: contain;
   display: block;
   transition: opacity 0.3s;
@@ -85,10 +81,10 @@ nav {
 }
 
 /* RIGHT SIDE (links + button) */
-.nav-right{
-  display:flex;
-  align-items:center;
-  gap:40px;
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 40px;
 }
 
 /* LINKS */
@@ -96,8 +92,9 @@ nav {
   display: flex;
   gap: 36px;
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
-
 .nav-links a {
   color: var(--gray);
   text-decoration: none;
@@ -108,7 +105,6 @@ nav {
   transition: color 0.3s;
   position: relative;
 }
-
 .nav-links a::after {
   content: '';
   position: absolute;
@@ -120,19 +116,10 @@ nav {
   transform: scaleX(0);
   transition: transform 0.3s;
 }
-
-.nav-links a:hover {
-  color: var(--white);
-}
-
+.nav-links a:hover { color: var(--white); }
 .nav-links a:hover::after,
-.nav-links a.active::after {
-  transform: scaleX(1);
-}
-
-.nav-links a.active {
-  color: var(--white);
-}
+.nav-links a.active::after { transform: scaleX(1); }
+.nav-links a.active { color: var(--white); }
 
 /* CTA BUTTON */
 .nav-cta {
@@ -149,12 +136,11 @@ nav {
   text-decoration: none;
   display: inline-block;
 }
-
 .nav-cta:hover {
   background: var(--cyan);
   color: var(--black);
 }
-
+  
   /* HERO */
   .hero {
     min-height: 100vh;
