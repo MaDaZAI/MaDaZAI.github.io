@@ -62,17 +62,19 @@
     border-bottom: 1px solid var(--border);
   }
 
-  .nav-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 1.3rem;
-    letter-spacing: 3px;
-    color: var(--white);
-    text-transform: uppercase;
+  .nav-logo-img {
+    display: flex;
+    align-items: center;
     text-decoration: none;
   }
 
-  .nav-logo span { color: var(--cyan); }
+  .nav-logo-img img {
+    height: 52px;
+    width: auto;
+    display: block;
+    transition: opacity 0.3s;
+    mix-blend-mode: lighten;
+  }
 
   .nav-links {
     display: flex;
