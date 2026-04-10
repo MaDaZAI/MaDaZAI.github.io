@@ -239,10 +239,8 @@
     /* HERO RIGHT — LOGO */
     .hero-right {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: center;
-      padding-top: 130px;
-      margin-left: -30px;
       animation: fadeUp 0.8s 0.25s ease both;
     }
     .hero-logo-wrap {
@@ -250,7 +248,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: var(--bg);
+      background-color: var(--bg); /* ده هيخلي الخلفية سوداء */
     }
     .hero-logo-glow {
       position: absolute;
@@ -260,13 +258,13 @@
       pointer-events: none;
     }
     .hero-logo-img {
-      width: 280px;
+      width: 340px;
       max-width: 100%;
       position: relative;
       z-index: 1;
-      mix-blend-mode: normal;
-      background: transparent;
-      filter: none;
+      mix-blend-mode: normal; /* مهم جداً */
+      background: transparent; /* مهم جداً */
+      filter: drop-shadow(0 0 30px rgba(99,179,237,0.2));
     }
 
     .stats-bar {
