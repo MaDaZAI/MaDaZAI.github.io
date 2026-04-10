@@ -250,7 +250,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #080a0f;
+      background: none !important;
+      background-color: transparent !important;
     }
     .hero-logo-glow {
       display: none !important;
@@ -260,8 +261,10 @@
       max-width: 100%;
       position: relative;
       z-index: 1;
-      mix-blend-mode: normal;
-      filter: none;
+      background: none !important;
+      background-color: transparent !important;
+      mix-blend-mode: screen !important; 
+      filter: brightness(1.1) contrast(1.2) !important;;
       /* تحريك الصورة: تحت 40px ويسار 30px */
       transform: translate(-90px, 110px) !important;
       /* إزالة أي blend mode أو filter ممكن يسبب مشاكل */
