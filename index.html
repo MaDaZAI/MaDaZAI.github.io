@@ -242,13 +242,15 @@
       align-items: center;
       justify-content: center;
       animation: fadeUp 0.8s 0.25s ease both;
+      background-color: #080a0f !important;
     }
     .hero-logo-wrap {
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: transparent !important; /* خلفية سوداء تماماً */
+      background: none !important;
+      background-color: transparent !important;
     }
     .hero-logo-glow {
       display: none !important;
@@ -258,13 +260,13 @@
       max-width: 100%;
       position: relative;
       z-index: 1;
-      background: transparent !important;
+      background: none !important;
+      background-color: transparent !important;
+      mix-blend-mode: normal !important;
+      filter: none !important;
       /* تحريك الصورة: تحت 40px ويسار 30px */
       transform: translate(-90px, 110px) !important;
       /* إزالة أي blend mode أو filter ممكن يسبب مشاكل */
-      mix-blend-mode: normal !important;
-      filter: none !important;
-      -webkit-filter: none !important;
     }
 
     .stats-bar {
