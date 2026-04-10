@@ -95,7 +95,6 @@
       padding: 0 40px;
       height: 68px;
       background: #080a0f;
-      backdrop-filter: none;
       border-bottom: 1px solid var(--border);
     }
     .nav-logo {
@@ -110,10 +109,9 @@
       object-fit: contain;
       display: block;
       transition: opacity 0.3s;
-      mix-blend-mode: normal;
-      filter: none;
+      mix-blend-mode: screen;
+      filter: brightness(1.1) contrast(1.2);
       background: transparent;
-      isolation: isolate;
     }
     .nav-logo:hover img { opacity: 0.85; }
     .nav-links {
@@ -265,8 +263,8 @@
       z-index: 1;
       background: none !important;
       background-color: transparent !important;
-      mix-blend-mode: normal !important;
-      filter: none !important;
+      mix-blend-mode: screen !important; 
+      filter: brightness(1.1) contrast(1.2) !important;
       /* تحريك الصورة: تحت 40px ويسار 30px */
       transform: translate(-90px, 110px) !important;
       /* إزالة أي blend mode أو filter ممكن يسبب مشاكل */
