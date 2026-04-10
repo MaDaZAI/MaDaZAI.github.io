@@ -248,14 +248,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--bg) !important; /* خلفية سوداء تماماً */
+      background: transparent !important; /* خلفية سوداء تماماً */
     }
     .hero-logo-glow {
-      position: absolute;
-      width: 320px; height: 320px;
-      background: radial-gradient(circle, rgba(99,179,237,0.12) 0%, transparent 65%);
-      border-radius: 50%;
-      pointer-events: none;
+      display: none !important;
     }
     .hero-logo-img {
       width: 340px;
@@ -268,6 +264,7 @@
       /* إزالة أي blend mode أو filter ممكن يسبب مشاكل */
       mix-blend-mode: normal !important;
       filter: none !important;
+      -webkit-filter: none !important;
     }
 
     .stats-bar {
