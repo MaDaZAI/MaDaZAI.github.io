@@ -248,7 +248,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: var(--bg); /* ده هيخلي الخلفية سوداء */
+      background: var(--bg) !important; /* خلفية سوداء تماماً */
     }
     .hero-logo-glow {
       position: absolute;
@@ -262,9 +262,12 @@
       max-width: 100%;
       position: relative;
       z-index: 1;
-      mix-blend-mode: normal; /* مهم جداً */
-      background: transparent; /* مهم جداً */
-      filter: drop-shadow(0 0 30px rgba(99,179,237,0.2));
+      background: transparent !important;
+      /* تحريك الصورة: تحت 40px ويسار 30px */
+      transform: translate(-30px, 40px) !important;
+      /* إزالة أي blend mode أو filter ممكن يسبب مشاكل */
+      mix-blend-mode: normal !important;
+      filter: none !important;
     }
 
     .stats-bar {
