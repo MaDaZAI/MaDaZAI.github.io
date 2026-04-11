@@ -478,19 +478,23 @@
     .divider { border: none; border-top: 1px solid var(--border); margin: 0 40px; }
     
     /* FOOTER */
-    footer-left {
+    footer {
+      padding: 28px 60px;
       border-top: 1px solid var(--border);
-      padding: 36px 40px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 1;
       flex-wrap: wrap;
       gap: 16px;
     }
     .footer-logo {
       font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 14px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
       color: var(--text);
     }
     .footer-logo span {
@@ -498,26 +502,32 @@
     }
     .footer-links {
       display: flex;
-      gap: 18px;
+      gap: 28px;
       list-style: none;
       margin: 0;
       padding: 0;
+      flex-wrap: wrap;
     }
     .footer-links a {
-      font-size: 11px;
-      color: var(--text-dim);
+      color: var(--text-muted);
       text-decoration: none;
-      transition: color 0.2s;
-      letter-spacing: 0.04em;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: color 0.3s;
     }
-    .footer-links a:hover {
+    .footer-links a:hover,
+    .footer-links a.active {
       color: var(--accent);
     }
     .footer-right {
-      font-size: 11px;
-      color: var(--text-dim);
       font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      margin-left: auto;
     }
+    /* === روابط القانونية في الفوتر === */
     .footer-legal {
       display: flex;
       gap: 20px;
@@ -528,7 +538,7 @@
       justify-content: center;
     }
     .footer-legal a {
-      color: var(--text-dim);
+      color: var(--text-muted);
       font-size: 0.6rem;
       text-decoration: none;
       transition: color 0.3s;
@@ -538,25 +548,46 @@
     .footer-legal a:hover {
       color: var(--accent);
     }
+    /* === مؤشر الصفحة - ثابت في الزاوية === */
     .page-indicator {
-      font-size: 11px;
-      color: var(--text-dim);
-      letter-spacing: 0.1em;
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: rgba(8,10,15,0.95);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
       font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      z-index: 100;
+      text-transform: uppercase;
+      border-radius: 4px;
     }
-    /* Responsive */
+    /* === Responsive للفوتر === */
     @media (max-width: 900px) {
       footer {
+      padding: 28px 20px;
       flex-direction: column;
       text-align: center;
-      padding: 28px 20px;
-    }
+      gap: 12px;
+    }  
     .footer-links {
-      flex-wrap: wrap;
       justify-content: center;
+      gap: 16px;
+    }
+    .footer-right {
+      margin-left: 0;
+      order: 3;
     }
     .footer-legal {
-      margin-top: 15px;
+      margin-top: 8px;
+    }
+    .page-indicator {
+      bottom: 16px;
+      right: 16px;
+      font-size: 0.55rem;
+      padding: 6px 12px;
     }
   }
     }
@@ -923,7 +954,7 @@
     <li><a href="terms-of-service.html">Terms of Service</a></li>
   </ul>
   
-  <div class="footer-left">© 2026 MADAZAI LTD · London, UK</div>
+  <div class="footer-right">© 2026 MADAZAI LTD · London, UK</div>
   <div class="page-indicator">Home · 01 / 05</div>
 </footer>
 </body>
