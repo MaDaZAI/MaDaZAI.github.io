@@ -469,12 +469,67 @@
       flex-wrap: wrap;
       gap: 16px;
     }
-    .footer-brand { font-family: var(--font-display); font-weight: 700; font-size: 14px; color: var(--text); margin-bottom: 3px; }
-    .footer-copy { font-size: 11px; color: var(--text-dim); }
-    .footer-nav { display: flex; gap: 18px; }
-    .footer-nav a { font-size: 11px; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
-    .footer-nav a:hover { color: var(--accent); }
-    .page-indicator { font-size: 11px; color: var(--text-dim); letter-spacing: 0.1em; }
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 36px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-brand { 
+      font-family: var(--font-display); 
+      font-weight: 700; 
+      font-size: 14px; 
+      color: var(--text); 
+      margin-bottom: 3px; 
+    }
+    .footer-copy { 
+      font-size: 11px; 
+      color: var(--text-dim); 
+    }
+    .footer-nav { 
+      display: flex; 
+      gap: 18px; 
+    }
+    .footer-nav a { 
+      font-size: 11px; 
+      color: var(--text-dim); 
+      text-decoration: none; 
+      transition: color 0.2s; 
+    }
+    .footer-nav a:hover { 
+      color: var(--accent); 
+    }
+    /* === أضف هذا الكود الجديد هنا === */
+    .footer-legal {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      margin: 10px 0;
+      padding: 0;
+      width: 100%;
+      justify-content: center;
+    }
+    .footer-legal a {
+      color: var(--text-dim);
+      font-size: 0.6rem;
+      text-decoration: none;
+      transition: color 0.3s;
+      font-family: var(--font-mono);
+      letter-spacing: 0.5px;
+    }
+    .footer-legal a:hover {
+      color: var(--accent);
+    }
+    /* === نهاية الكود الجديد === */
+    .page-indicator { 
+      font-size: 11px; 
+      color: var(--text-dim); 
+      letter-spacing: 0.1em; 
+    }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(18px); }
       to { opacity: 1; transform: translateY(0); }
