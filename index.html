@@ -487,36 +487,42 @@
       flex-wrap: wrap;
       gap: 16px;
     }
-    .footer-brand { 
-      font-family: var(--font-display); 
-      font-weight: 700; 
-      font-size: 14px; 
-      color: var(--text); 
-      margin-bottom: 3px; 
+    .footer-logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text);
     }
-    .footer-copy { 
-      font-size: 11px; 
-      color: var(--text-dim); 
+    .footer-logo span {
+      color: var(--accent);
     }
-    .footer-nav { 
-      display: flex; 
-      gap: 18px; 
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
     }
-    .footer-nav a { 
-      font-size: 11px; 
-      color: var(--text-dim); 
-      text-decoration: none; 
-      transition: color 0.2s; 
+    .footer-links a {
+      font-size: 11px;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+      letter-spacing: 0.04em;
     }
-    .footer-nav a:hover { 
-      color: var(--accent); 
+    .footer-links a:hover {
+      color: var(--accent);
     }
-    /* === أضف هذا الكود الجديد هنا === */
+    .footer-right {
+      font-size: 11px;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+    }
     .footer-legal {
       display: flex;
       gap: 20px;
       list-style: none;
-      margin: 10px 0;
+      margin: 10px 0 0 0;
       padding: 0;
       width: 100%;
       justify-content: center;
@@ -532,6 +538,27 @@
     .footer-legal a:hover {
       color: var(--accent);
     }
+    .page-indicator {
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      font-family: var(--font-mono);
+    }
+    /* Responsive */
+    @media (max-width: 900px) {
+      footer {
+      flex-direction: column;
+      text-align: center;
+      padding: 28px 20px;
+    }
+    .footer-links {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .footer-legal {
+      margin-top: 15px;
+    }
+  }
     /* === نهاية الكود الجديد === */
     .page-indicator { 
       font-size: 11px; 
