@@ -525,7 +525,7 @@
       font-family: var(--font-mono);
       font-size: 0.62rem;
       color: var(--text-muted);
-      margin-left: auto;
+      /* أزلنا: margin-left: auto; عشان العناصر تبقا على الشمال زي باقي الصفحات */
     }
     /* === روابط القانونية في الفوتر === */
     .footer-legal {
@@ -548,7 +548,7 @@
     .footer-legal a:hover {
       color: var(--accent);
     }
-    /* === مؤشر الصفحة - ثابت في الزاوية === */
+    /* === مؤشر الصفحة - ثابت في الزاوية مع السهم === */
     .page-indicator {
       position: fixed;
       bottom: 28px;
@@ -564,32 +564,37 @@
       text-transform: uppercase;
       border-radius: 4px;
     }
+    .page-indicator::after {
+      content: ' ↗';
+      color: var(--accent);
+      font-weight: 700;
+    }
     /* === Responsive للفوتر === */
     @media (max-width: 900px) {
       footer {
-      padding: 28px 20px;
-      flex-direction: column;
-      text-align: center;
-      gap: 12px;
-    }  
-    .footer-links {
-      justify-content: center;
-      gap: 16px;
+        padding: 28px 20px;
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+      }
+      .footer-links {
+        justify-content: center;
+        gap: 16px;
+      }
+      .footer-right {
+        margin-left: 0;
+        order: 3;
+      }
+      .footer-legal {
+        margin-top: 8px;
+      }
+      .page-indicator {
+        bottom: 16px;
+        right: 16px;
+        font-size: 0.55rem;
+        padding: 6px 12px;
+      }
     }
-    .footer-right {
-      margin-left: 0;
-      order: 3;
-    }
-    .footer-legal {
-      margin-top: 8px;
-    }
-    .page-indicator {
-      bottom: 16px;
-      right: 16px;
-      font-size: 0.55rem;
-      padding: 6px 12px;
-    }
-  }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(18px); }
       to { opacity: 1; transform: translateY(0); }
@@ -937,8 +942,9 @@
 <!-- FOOTER -->
 <footer role="contentinfo">
   <div class="footer-logo">MaDaZ <span>AI</span></div>
+  
   <ul class="footer-links">
-    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html" class="active">Home</a></li>
     <li><a href="MaDaZ-AI-07.html">MaDaZ-AI-07</a></li>
     <li><a href="MaDaZ-AGI-BuddY.html">MaDaZ-AGI-BuddY</a></li>
     <li><a href="Founder-Investors.html">Investors</a></li>
@@ -947,13 +953,15 @@
     <li><a href="https://www.linkedin.com/in/ahmed-eid-064758373" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
   </ul>
   
-  <!-- Legal Links -->
+  <!-- ✅ روابط القانونية -->
   <ul class="footer-legal">
     <li><a href="privacy-policy.html">Privacy Policy</a></li>
     <li><a href="terms-of-service.html">Terms of Service</a></li>
   </ul>
   
   <div class="footer-right">© 2026 MADAZAI LTD · London, UK</div>
+  
+  <!-- ✅ مؤشر الصفحة مع السهم ↗ -->
   <div class="page-indicator">Home · 01 / 05</div>
 </footer>
 </body>
