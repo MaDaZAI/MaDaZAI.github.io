@@ -440,7 +440,12 @@ footer { padding:28px 60px; border-top:1px solid var(--border); display:flex; ju
 .footer-links a:hover { color:var(--white); }
 .footer-right { font-family:'Space Mono',monospace; font-size:0.62rem; color:var(--gray); }
 
-.page-indicator { position:fixed; bottom:28px; right:28px; background:rgba(2,4,8,0.92); border:1px solid var(--border); padding:8px 16px; font-family:'Space Mono',monospace; font-size:0.6rem; color:var(--gold); letter-spacing:2px; z-index:100; text-transform:uppercase; }
+.page-indicator {
+  font-size: 0.6rem;
+  color: var(--gold); /* استخدم الذهب بدلاً من السيان لهذه الصفحة */
+  letter-spacing: 2px;
+  font-family: 'Space Mono', monospace;
+  text-transform: uppercase;
 </style>
 </head>
 <body>
@@ -929,18 +934,29 @@ footer { padding:28px 60px; border-top:1px solid var(--border); display:flex; ju
 </div>
   
 <!-- FOOTER -->
-<footer>
+<footer role="contentinfo">
   <div class="footer-logo">MaDaZ <span>AI</span></div>
   <ul class="footer-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="MaDaZ-AI-07.html">MaDaZ-AI-07</a></li>
+    <li><a href="MaDaZ-AGI-BuddY.html">MaDaZ-AGI-BuddY</a></li>
     <li><a href="Founder-Investors.html">Investors</a></li>
-    <li><a href="https://github.com/MaDaZAI" target="_blank">GitHub</a></li>
-    <li><a href="https://www.linkedin.com/in/ahmed-eid-064758373" target="_blank">LinkedIn</a></li>
+    <li><a href="Trial.html">Request Trial</a></li>
+    <li><a href="https://github.com/MaDaZAI" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+    <li><a href="https://www.linkedin.com/in/ahmed-eid-064758373" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
   </ul>
+  
+  <!-- Legal Links -->
+  <ul class="footer-legal">
+    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+    <li><a href="terms-of-service.html">Terms of Service</a></li>
+  </ul>
+  
   <div class="footer-right">© 2026 MADAZAI LTD · London, UK</div>
+  <div class="page-indicator">MaDaZ-AGI · 03 / 05</div>
 </footer>
-<div class="page-indicator">MaDaZ-AGI · 03 / 05</div>
+</body>
+</html>
 
 <script>
 // Timer countdown
