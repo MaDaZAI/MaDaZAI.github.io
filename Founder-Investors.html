@@ -508,22 +508,83 @@ section.alt { background:rgba(240,192,64,0.01); border-top:1px solid var(--borde
 
 /* FOOTER */
 footer {
-  padding:28px 60px; border-top:1px solid var(--border);
-  display:flex; justify-content:space-between; align-items:center;
-  position:relative; z-index:1;
+  padding: 28px 60px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
 }
-.footer-logo { font-family:'Syne',sans-serif; font-weight:800; font-size:0.95rem; letter-spacing:3px; text-transform:uppercase; }
-.footer-logo span { color:var(--gold); }
-.footer-links { display:flex; gap:28px; list-style:none; }
-.footer-links a { color:var(--gray); text-decoration:none; font-family:'Space Mono',monospace; font-size:0.65rem; letter-spacing:1.5px; text-transform:uppercase; transition:color 0.3s; }
-.footer-links a:hover { color:var(--white); }
-.footer-right { font-family:'Space Mono',monospace; font-size:0.62rem; color:var(--gray); }
+.footer-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.footer-logo span {
+  color: var(--gold);
+}
+.footer-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+.footer-links a {
+  color: var(--gray);
+  text-decoration: none;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+.footer-links a:hover {
+  color: var(--white);
+}
 
+/* === أضف كود الروابط القانونية هنا === */
+.footer-legal {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 10px 0 0 0;
+  padding: 0;
+  width: 100%;
+  justify-content: center;
+}
+.footer-legal a {
+  color: var(--gray);
+  font-size: 0.6rem;
+  text-decoration: none;
+  transition: color 0.3s;
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 0.5px;
+}
+.footer-legal a:hover {
+  color: var(--gold); /* ذهب للصفحة دي */
+}
+/* === نهاية كود الروابط القانونية === */
+
+.footer-right {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--gray);
+}
 .page-indicator {
-  position:fixed; bottom:28px; right:28px;
-  background:rgba(2,4,8,0.92); border:1px solid var(--border);
-  padding:8px 16px; font-family:'Space Mono',monospace;
-  font-size:0.6rem; color:var(--gold); letter-spacing:2px; z-index:100; text-transform:uppercase;
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: rgba(2,4,8,0.92);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--gold);
+  letter-spacing: 2px;
+  z-index: 100;
+  text-transform: uppercase;
 }
 </style>
 </head>
